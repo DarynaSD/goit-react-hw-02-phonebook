@@ -17,13 +17,27 @@ class App extends Component {
   }
 
   createContact = (formData) => {
-    this.setState((prev) => ({
-      contacts: [
-        ...prev.contacts, {
+    const alreadyExist = this.state.contacts.find(
+      (item) => item.name === formData.name
+    );
+    if (alreadyExist) return alert(`Contact '${formData.name}' already exist`)
+    
+    const newContact = { 
           ...formData,
           id: nanoid(),
-        }
+    }
+
+    this.setState((prev) => ({
+      contacts: [
+        newContact,
+        ...prev.contacts, 
       ]
+    }))
+  }
+
+  handleDelete = (id) => {
+    this.setState((prev) => ({
+      contacts: prev.contacts.filter((one) => one.id !== id)
     }))
   }
 
@@ -32,7 +46,7 @@ class App extends Component {
     return (
       <section>
         <Form createContact={this.createContact} />
-        <ContactList contacts={ this.state.contacts } />
+        <ContactList contacts={this.state.contacts} handleDelete={ this.handleDelete} />
       </section>
     )
   }

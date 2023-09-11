@@ -2,11 +2,11 @@ import React from 'react'
 
 import ContactItem from './ContactItem'
 
-const ContactList = ({contacts}) => {
+const ContactList = ({contacts, handleDelete}) => {
   return (
     <ul>
           {contacts.map((oneCont) => (
-              <ContactItem item={oneCont} key={oneCont.id } />
+              <ContactItem item={oneCont} key={oneCont.id} handleDelete={ handleDelete}/>
       ))}
     </ul>
   )
