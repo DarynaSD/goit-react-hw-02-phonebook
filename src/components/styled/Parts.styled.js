@@ -90,10 +90,8 @@ export const ContactNumber = styled('p')({
     margin: '0 0 4px',
 })
 
-export const DeleteBtn = styled('btn')({
-    display: 'flex',
-    alignItems: 'center',
-    width: 70,
+export const DeleteBtn = styled('button')({
+    width: 90,
     height: 30,
     transition: 'boxShadow, easy, 300ms; backgroundColor, easy, 300ms',
     cursor: 'pointer',

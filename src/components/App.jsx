@@ -39,8 +39,8 @@ class App extends Component {
 
   handleDelete = (id) => {
     this.setState((prev) => ({
-      contacts: prev.contacts.filter((one) => one.id !== id)
-    }))
+      contacts: prev.contacts.filter((one) => one.id !== id),
+    }));
   }
 
 	filterContacts = (filterQuery) => {
