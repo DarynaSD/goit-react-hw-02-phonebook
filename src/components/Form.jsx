@@ -3,6 +3,8 @@
 
 import { Component } from 'react';
 
+import { InputLabelWrapper, Input, Button } from './styled/Parts.styled';
+
 class Form extends Component {
   state = {
     name: '',
@@ -12,27 +14,32 @@ class Form extends Component {
 
   //ключ генерується динамічно, в залежності від того, який прилетить нейм
   //нейм в інпуті і властивість стейта називаються однаково
-  handleChange = ({ target: { value, name } }) => {
+  handleChange = ({ target: { value, name, pattern, title } }) => {
+    // value.match(pattern) ?
+    // this.setState({ [name]: value }) : alert(title)
+    
     this.setState({ [name]: value })
   };
-
-  // handleChangeNumber = ({ target: { value } }) => {
-  //   this.setState({ number: value })
-  // };
 
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.state);
+
     this.props.createContact(this.state);
-    console.log(this.props)
+
+
+    this.setState({
+      name: '',
+      number: '',  })
   }
 
   render() {
     //console.log(this.state)
     return (
       <form onSubmit={this.handleSubmit}>
+        <InputLabelWrapper>
         <label htmlFor="nameInput">Name</label>
-        <input
+        <Input
           type="text"
           name="name"
           //pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -40,11 +47,14 @@ class Form extends Component {
           required
           id="nameInput"
           value={this.state.name}
-          onChange={this.handleChange}
+            onChange={this.handleChange}
+            autoFocus
         />
+        </InputLabelWrapper>
 
-        <label htmlFor="telInput">Number</label>
-        <input
+        <InputLabelWrapper>
+         <label htmlFor="telInput">Number</label>
+        <Input
           type="tel"
           name="number"
           //pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -54,8 +64,11 @@ class Form extends Component {
           value={this.state.number}
           onChange={this.handleChange}
         />
+        </InputLabelWrapper>
 
-        <button type="submit">Create</button>
+       
+
+        <Button type="submit">Create</Button>
       </form>
     );
   }

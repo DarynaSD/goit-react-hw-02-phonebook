@@ -3,6 +3,8 @@ import { nanoid } from 'nanoid'
 
 import Form from './Form'
 import ContactList from './ContactList'
+import Filter from './Filter'
+import { Section, FormWrapper, ListWrapper } from './styled/Parts.styled'
 
 
 class App extends Component {
@@ -13,7 +15,7 @@ class App extends Component {
     {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
     {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
     ],
-    filter: '',
+    filter: null,
   }
 
   createContact = (formData) => {
@@ -41,13 +43,25 @@ class App extends Component {
     }))
   }
 
+	filterContacts = (filterQuery) => {
+		this.setState((prev) => ({
+			filter: prev.contacts.filter((one) =>
+				one.name.toLowerCase().includes(filterQuery.toLowerCase())
+			),
+		}))
+	}
+
   render() {
-    console.log(this.state.contacts)
     return (
-      <section>
-        <Form createContact={this.createContact} />
-        <ContactList contacts={this.state.contacts} handleDelete={ this.handleDelete} />
-      </section>
+      <Section>
+        <FormWrapper>
+          <Form createContact={this.createContact} />
+            </FormWrapper>
+          <ListWrapper>
+            <Filter filterContacts={this.filterContacts} />
+            <ContactList contacts={this.state.contacts} handleDelete={this.handleDelete} filter={ this.state.filter} />
+          </ListWrapper>
+      </Section>
     )
   }
 }
